@@ -1,0 +1,92 @@
+#include <iostream>
+#include <string>
+#include <windows.h>
+
+using namespace std;
+
+// Функция для очистки консоли
+void clearConsole() {
+    system("cls");
+}
+
+// Функция для отрисовки заполненного треугольника
+void drawFilledTriangle(int height, char texture) {
+    for (int i = 1; i <= height; i++) {
+        // Пробелы перед звездочками
+        for (int j = 1; j <= height - i; j++) {
+            cout << ".   ";
+        }
+        // Звездочки
+        for (int k = 1; k <= 2 * i - 1; k++) {
+            cout << texture << "   ";
+        }
+        cout << endl << endl;
+    }
+}
+
+// Функция для отрисовки пустого треугольника
+void drawEmptyTriangle(int height, char texture) {
+    for (int i = 1; i <= height; i++) {
+        // Пробелы перед звездочками
+        for (int j = 1; j <= height - i; j++) {
+            cout << ".   ";
+        }
+
+        // Для первой строки - одна звездочка
+        if (i == 1) {
+            cout << texture;
+        }
+        // Для последней строки - все звездочки
+        else if (i == height) {
+            for (int k = 1; k <= 2 * i - 1; k++) {
+                cout << texture << "   ";
+            }
+        }
+        // Для средних строк - звездочки по краям
+        else {
+            cout << texture;
+            for (int k = 1; k <= 2 * (i - 1) - 1; k++) {
+                cout << "   .   ";
+            }
+            cout << "   " << texture;
+        }
+        cout << endl << endl;
+    }
+}
+
+int main() {
+    SetConsoleOutputCP(1251); // Для поддержки русского языка
+
+    int figureChoice, typeChoice, height;
+    char texture;
+
+    // Очистка консоли и отображение шапки
+    clearConsole();
+
+    cout << "[ + ] Фигура: \"Треугольник\"" << endl << endl;
+    cout << "[ 1 ] Заполненный" << endl;
+    cout << "[ 2 ] Пустой" << endl << endl;
+    cout << "[ + ] Выберите тип: ";
+    cin >> typeChoice;
+
+    // Запрос размера и текстуры
+    cout << endl << "[ + ] Размер: \t";
+    cin >> height;
+    cout << "[ + ] Текстура: \t";
+    cin >> texture;
+
+    // Вывод результата
+    cout << endl << "[ + ] Результат:" << endl << endl;
+
+    if (typeChoice == 1) {
+        drawFilledTriangle(height, texture);
+    }
+    else if (typeChoice == 2) {
+        drawEmptyTriangle(height, texture);
+    }
+    else {
+        cout << "Ошибка: неверный выбор типа!" << endl;
+    }
+
+    return 0;
+}
